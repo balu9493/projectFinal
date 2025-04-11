@@ -16,11 +16,16 @@ pipeline {
         }
 
         stage('Generate Test Data') {
-    steps {
-        bat 'C:\\Python311\\python.exe generate_test_data.py'
-    }
-}
+            steps {
+                bat 'C:\\Python311\\python.exe generate_test_data.py'
+            }
+        }
 
+        stage('Prioritize Tests (ML)') {
+            steps {
+                bat 'C:\\Python311\\python.exe ml_prioritizer.py'
+            }
+        }
 
         stage('Run Tests') {
             steps {
