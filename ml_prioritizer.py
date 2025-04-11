@@ -25,3 +25,8 @@ prioritized_tests = df[['test_name', 'priority_score']].drop_duplicates().sort_v
 prioritized_tests.to_csv('prioritized_tests.csv', index=False)
 print("Prioritization complete.\n")
 print(prioritized_tests.head())
+
+# Save top 3 test names to a file
+top_tests = prioritized_tests['test_name'].head(3)
+top_tests.to_csv('top_tests.txt', index=False, header=False)
+
