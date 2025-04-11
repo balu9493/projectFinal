@@ -17,7 +17,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'C:\\Python311\\Scripts\\pytest.exe tests/'
+                bat 'C:\\Python311\\python.exe -m pytest tests/'
             }
         }
     }
