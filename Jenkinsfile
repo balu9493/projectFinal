@@ -15,6 +15,13 @@ pipeline {
             }
         }
 
+        stage('Generate Test Data') {
+    steps {
+        bat 'C:\\Python311\\python.exe generate_test_data.py'
+    }
+}
+
+
         stage('Run Tests') {
             steps {
                 bat 'C:\\Python311\\python.exe -m pytest tests/'
