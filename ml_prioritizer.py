@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
@@ -21,12 +22,19 @@ df['priority_score'] = model.predict_proba(X)[:, 1]
 # Sort tests by priority
 prioritized_tests = df[['test_name', 'priority_score']].drop_duplicates().sort_values(by='priority_score', ascending=False)
 
-# Save result
+# Filter: keep only test files that actually exist
+existing_tests = []
+for test in prioritized_tests['test_name']:
+    if os.path.exists(f'tests/{test}.py'):
+        existing_tests.append(test)
+
+# Save valid top 3 tests to a file
+with open('top_tests.txt', 'w') as f:
+    for test in existing_tests[:3]:
+        f.write(f"{test}\n")
+
+# Save full prioritized list (optional — for reference/debugging)
 prioritized_tests.to_csv('prioritized_tests.csv', index=False)
+
 print("Prioritization complete.\n")
-print(prioritized_tests.head())
-
-# Save top 3 test names to a file
-top_tests = prioritized_tests['test_name'].head(3)
-top_tests.to_csv('top_tests.txt', index=False, header=False)
-
+print(pd.DataFrame({'test_name': existing_tests[:3]}))
