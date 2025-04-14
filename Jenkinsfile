@@ -27,10 +27,11 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Prioritized Tests') {
     steps {
-        bat 'C:\\Python311\\python.exe -m pytest tests/'
-      }
+        bat 'type top_tests.txt'  // this will show selected tests in console
+        bat 'for /F %i in (top_tests.txt) do C:\\Python311\\python.exe -m pytest tests\\%i.py'
     }
+   }
   }
-}
+ }
