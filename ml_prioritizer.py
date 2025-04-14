@@ -19,8 +19,14 @@ model.fit(X, y)
 # Predict probabilities of failure (simulate prioritization)
 df['priority_score'] = model.predict_proba(X)[:, 1]
 
-# Sort tests by priority
-prioritized_tests = df[['test_name', 'priority_score']].drop_duplicates().sort_values(by='priority_score', ascending=False)
+# Sort tests by priority and remove duplicates
+prioritized_tests = df[['test_name', 'priority_score']].sort_values(
+    by='priority_score', ascending=False
+).drop_duplicates(subset=['test_name'])
+
+# Save only the top N unique test names
+top_tests = prioritized_tests['test_name'].head(3)
+top_tests.to_csv('top_tests.txt', index=False, header=False)
 
 # Filter: keep only test files that actually exist
 existing_tests = []
