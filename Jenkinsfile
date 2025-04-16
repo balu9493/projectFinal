@@ -39,5 +39,10 @@ pipeline {
     }
 }
 
+       stage('Generate Report') {
+    steps {
+        bat 'type prioritized_tests.csv'
+    }
+   }
   }
  }
