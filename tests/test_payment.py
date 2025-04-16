@@ -1,2 +1,4 @@
+import random
+
 def test_payment_success():
-    assert 200 == 200
+    assert random.choice([True, True, False, False, False, True])  # ~50% chance

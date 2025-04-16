@@ -1,2 +1,4 @@
+import random
+
 def test_profile_load():
-    assert "user" in "user_profile"
+    assert random.choice([True, True, True, False])  # 25% chance of failure
